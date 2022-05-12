@@ -2,7 +2,6 @@ package br.com.alura.mvc.mudi.controller;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +16,12 @@ import br.com.alura.mvc.mudi.repository.PedidoRepository;
 @RequestMapping("pedido")
 public class PedidoController {
 	
-	@Autowired
-	private PedidoRepository pedidoRepository;
+	
+	private final PedidoRepository pedidoRepository;
+	
+	public PedidoController(PedidoRepository pedidoRepository) {
+		this.pedidoRepository = pedidoRepository;
+	}
 
 	@GetMapping("formulario") 
 	public String formulario(RequisicaoNovoPedido requisicao) {
