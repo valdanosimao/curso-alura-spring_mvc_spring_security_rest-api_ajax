@@ -1,5 +1,6 @@
 package br.com.alura.mvc.mudi.controller;
 
+import java.awt.print.Pageable;
 import java.security.Principal;
 import java.util.List;
 
@@ -18,18 +19,18 @@ import net.bytebuddy.asm.Advice.OffsetMapping.Sort;
 @RequestMapping("/home")
 public class HomeController {
 	
-	private final PedidoRepository repository;
+	private final PedidoRepository pedidoRepository;
 	
-	public HomeController(PedidoRepository repository) {
-		this.repository = repository;
+	public HomeController(PedidoRepository pedidoRepository) {
+		this.pedidoRepository = pedidoRepository;
 	}
 
 	@GetMapping
 	public String home(Model model, Principal principal) {
-		Sort sort = Sort.by("dataDaEntrega").descending();
-		PageRequest paginacao = PageRequest.of(0, 10, sort);
+		//Sort sort = Sort.by("dataDaEntrega").descending();
+		PageRequest paginacao = PageRequest.of(0, 10);
 		
-		List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.ENTREGUE, paginacao);
+		List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.ENTREGUE, (Pageable) paginacao);
 		model.addAttribute("pedidos", pedidos);
 		return "home";
 	}
