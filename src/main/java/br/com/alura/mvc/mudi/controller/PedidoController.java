@@ -2,6 +2,7 @@ package br.com.alura.mvc.mudi.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,14 +20,11 @@ import br.com.alura.mvc.mudi.repository.UserRepository;
 @RequestMapping("pedido")
 public class PedidoController {
 	
+	@Autowired
+	private PedidoRepository pedidoRepository;
 	
-	private final PedidoRepository pedidoRepository;
-	private final UserRepository userRepository;
-	
-	public PedidoController(PedidoRepository pedidoRepository, UserRepository userRepository) {
-		this.pedidoRepository = pedidoRepository;
-		this.userRepository = userRepository;
-	}
+	@Autowired
+	private UserRepository userRepository;
 
 	@GetMapping("formulario")
 	public String formulario(RequisicaoNovoPedido requisicao) {
@@ -47,6 +45,4 @@ public class PedidoController {
 		pedidoRepository.save(pedido);
 		return "redirect:/home";
 	}
-
-	
 }

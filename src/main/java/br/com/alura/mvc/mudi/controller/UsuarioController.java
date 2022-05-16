@@ -3,6 +3,7 @@ package br.com.alura.mvc.mudi.controller;
 import java.security.Principal;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,13 +18,10 @@ import br.com.alura.mvc.mudi.repository.PedidoRepository;
 @Controller
 @RequestMapping("usuario")
 public class UsuarioController {
-	
-	private final PedidoRepository pedidoRepository;
-	
-	public UsuarioController(PedidoRepository pedidoRepository) {
-		this.pedidoRepository = pedidoRepository;
-	}
 
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
 	@GetMapping("pedido")
 	public String home(Model model, Principal principal) {
 		List<Pedido> pedidos = pedidoRepository.findAllByUsuario(principal.getName());
@@ -43,6 +41,4 @@ public class UsuarioController {
 	public String onError() {
 		return "redirect:/usuario/home";
 	}
-
-
 }
