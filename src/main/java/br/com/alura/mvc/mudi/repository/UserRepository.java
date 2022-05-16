@@ -8,6 +8,6 @@ import br.com.alura.mvc.mudi.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 	
-	User findByUserName(String username);
+	User findByUsername(String username);
 
 }
